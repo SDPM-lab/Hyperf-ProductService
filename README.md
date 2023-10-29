@@ -17,7 +17,7 @@ Demo service in microservice architecture
 `docker-compose down`
 
 ### 初始化資料庫
-`docker-compose exec production-service php bin/hyperf.php migrate`
+`docker-compose exec hyperf_product_service php bin/hyperf.php migrate`
 
 ### 執行資料表資料填充
-`docker-compose exec production-service php bin/hyperf.php db:seed`
+`docker-compose exec hyperf_product_service php bin/hyperf.php db:seed`
