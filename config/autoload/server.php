@@ -16,18 +16,28 @@ use Swoole\Constant;
 return [
     'mode' => SWOOLE_PROCESS,
     'servers' => [
+        // [
+        //     'name' => 'http',
+        //     'type' => Server::SERVER_HTTP,
+        //     'host' => '0.0.0.0',
+        //     'port' => 9501,
+        //     'sock_type' => SWOOLE_SOCK_TCP,
+        //     'callbacks' => [
+        //         Event::ON_REQUEST => [Hyperf\HttpServer\Server::class, 'onRequest'],
+        //     ],
+        //     'options' => [
+        //         // Whether to enable request lifecycle event
+        //         'enable_request_lifecycle' => false,
+        //     ],
+        // ],
         [
-            'name' => 'http',
+            'name' => 'jsonrpc-http',
             'type' => Server::SERVER_HTTP,
             'host' => '0.0.0.0',
-            'port' => 9501,
+            'port' => 9601,
             'sock_type' => SWOOLE_SOCK_TCP,
             'callbacks' => [
-                Event::ON_REQUEST => [Hyperf\HttpServer\Server::class, 'onRequest'],
-            ],
-            'options' => [
-                // Whether to enable request lifecycle event
-                'enable_request_lifecycle' => false,
+                Event::ON_REQUEST => [\Hyperf\JsonRpc\HttpServer::class, 'onRequest'],
             ],
         ],
     ],

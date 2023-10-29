@@ -1,18 +1,50 @@
 version: '3'
 services:
-  hyperf-skeleton:
-    container_name: hyperf-skeleton
+  hyperf_product_service:
     image: hyperf-skeleton
     build:
       context: .
     volumes:
       - ./:/opt/www
     ports:
-      - 9501:9501
+      # - 8081:9501
+      - 9601:9601
     environment:
       - APP_ENV=dev
       - SCAN_CACHEABLE=false
-
+    networks:
+        - hyperf_project_network
+  # hyperf_productDB:
+  #     image: mysql:5.7
+  #     environment:
+  #         MYSQL_DATABASE: production
+  #         MYSQL_ROOT_PASSWORD: root
+  #     ports:
+  #         - "8310:3306"
+  #     networks:
+  #       - hyperf_project_network
+  hyperf_productDB:
+    image: postgres:11.12
+    networks:
+        - hyperf_project_network
+    environment:
+        POSTGRES_DB: production
+        POSTGRES_USER: root
+        POSTGRES_PASSWORD: root
+    volumes:
+        - ./production-db-data:/var/lib/postgresql/data/
+    ports:
+        - "8310:5432"
+    command:
+        [
+            "postgres",
+            "-c",
+            "logging_collector=on",
+            "-c",
+            "log_destination=stderr",
+            "-c",
+            "max_connections=50000"
+        ]
 networks:
-  default:
-    name: hyperf-skeleton
+    hyperf_project_network:
+        external: true
