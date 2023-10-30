@@ -3,8 +3,9 @@ namespace App\JsonRpc;
 use App\Model\ProductionModel;
 use App\Model\InventoryModel;
 use Hyperf\RpcServer\Annotation\RpcService;
+use Hyperf\RpcMultiplex\Constant;
 
-#[RpcService(name: "ProducthService", protocol: "jsonrpc-http", server: "jsonrpc-http", publishTo: "consul")]
+#[RpcService(name: "ProducthService", server: "jsonrpc", protocol: Constant::PROTOCOL_DEFAULT, publishTo: "consul")]
 class ProducthService implements ProducthServiceInterface
 {
     public function test() {

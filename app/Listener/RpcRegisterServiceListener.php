@@ -27,7 +27,6 @@ class RpcRegisterServiceListener extends RegisterServiceListener
     {
         $result = [];
         $servers = $this->config->get('server.servers', []);
-        var_dump($servers);
         foreach ($servers as $server) {
             if (! isset($server['name'], $server['host'], $server['port'])) {
                 continue;
@@ -35,7 +34,8 @@ class RpcRegisterServiceListener extends RegisterServiceListener
             if (! $server['name']) {
                 throw new InvalidArgumentException('Invalid server name');
             }
-            if ($server['name'] != 'jsonrpc-http') {
+            if ($server['name'] != 'jsonrpc') {
+                var_dump($server);
                 $result[] = $server;
                 continue;
             }
